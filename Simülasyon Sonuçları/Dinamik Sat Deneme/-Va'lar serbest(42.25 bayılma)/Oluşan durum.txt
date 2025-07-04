@@ -1,0 +1,33 @@
+41.75-42.25 // 0 - -1 uygulandı fakat motor 42'den sonra 0 rpm altına düşüyor
+
+Kodu
+"function Vref_sat  = Dinamik_Sat(zaman, Vref)
+    % Vref sınırlandırma (0-1 veya 0--1 arasında)
+    if zaman < 41.75
+        Vref = max(0, min(1, Vref));  % Vref 0 ile 1 arasında
+        Vref_sat=Vref;
+
+    elseif zaman >= 41.75 && zaman < 42.25
+        Vref = max(-1, min(0, Vref));  % Vref 0 ile -1 arasında
+        Vref_sat=Vref;
+
+    elseif zaman >= 42.25 && zaman < 60
+        Vref = 0;
+        Vref_sat=Vref;
+
+    elseif zaman >= 60 && zaman < 101.75
+        Vref = max(-1, min(0, Vref));  % Vref 0 ile -1 arasında
+        Vref_sat=Vref;
+
+    elseif zaman >= 101.75 && zaman < 102.25
+        Vref = max(0, min(1, Vref));  % Vref 0 ile 1 arasında
+        Vref_sat=Vref;
+
+    elseif zaman >= 102.25 && zaman < 120
+        Vref = 0;
+        Vref_sat=Vref;
+        
+    else
+        % Vref = 0;
+        Vref_sat=Vref;
+    end
